@@ -15,7 +15,7 @@ const longestStr = (str1, str2) => str1.length > str2.length ? str1 : str2;
 
 export const longestPalindromaticSubstring = (str) => {
   if (!str){
-    throw new TypeError('Illegal salmon!');
+    throw new TypeError('Illegal!');
   }
   let longestPal = '';
 
