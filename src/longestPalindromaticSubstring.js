@@ -1,33 +1,32 @@
-const palindromeHelper = (str, i, isEvenStr) => {
-  let front = i;
-  let back = i + isEvenStr;
-  console.log('HELLO, hi', front, back);
-
-  while (front > 0 && back < str.length -1){
-    if (str[front - 1] !== str[back + 1]){
+const palindromeHelper = (str, i, evenPal) => {
+  let front = i + evenPal;
+  let back = i;
+  while (front && back < str.length - 1){
+    if (str[front - 1].toLowerCase() !== str[back + 1].toLowerCase()){
       break;
     }
     front--;
     back++;
   }
-  console.log('HELLO, hi2', front, back, str.slice(front, back));
-  return str.slice(front, back);
+  return str.slice(front, back + 1);
 }
+
+const longestStr = (str1, str2) => str1.length > str2.length ? str1 : str2;
 
 export const longestPalindromaticSubstring = (str) => {
   if (!str){
-    throw new Error('Invalid Input')
+    throw new TypeError('Illegal salmon!');
   }
-  let longest = '';
+  let longestPal = '';
 
   for(let i = 0; i < str.length; i++){
     const longestEvenAtI = palindromeHelper(str, i, true);
     const longestOddAtI = palindromeHelper(str, i, false);
     
-    const longestAtI = longestEvenAtI.length > longestOddAtI.length ? longestEvenAtI : longestOddAtI;
+    const longestAtI = longestStr(longestEvenAtI, longestOddAtI);
 
-    longest = longest.length < longestAtI.length ? longestAtI : longest;
+    longestPal = longestStr(longestAtI, longestPal);
   }
-  console.log(longest)
-  return longest.length > 1 ? longest : "";
+
+  return longestPal.length > 1 ? longestPal : "";
 };
